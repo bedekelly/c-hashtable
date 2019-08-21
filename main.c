@@ -15,5 +15,6 @@ int main() {
     }
 
     printf("%d\n", ht_get(ht, 2));
-    printf("%d\n", ht_get(ht, 9999));
+    ht_delete(ht, 2);
+    printf("%d\n", ht_get(ht, 2));
 }

@@ -85,3 +85,10 @@ void ht_debug(Hashtable *hashtable) {
     }
     printf("\n");
 }
+
+
+void ht_delete(Hashtable *hashtable, int key) {
+    int hashedKey = hash(key, hashtable->maxLength);
+    LinkedList *list = hashtable->table[hashedKey];
+    ll_delete(list, key);
+}

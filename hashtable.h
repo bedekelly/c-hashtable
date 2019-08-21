@@ -18,6 +18,7 @@ typedef struct {
 Hashtable *ht_create();
 void ht_set(Hashtable *, int key, int value);
 int ht_get(Hashtable *, int key);
+void ht_delete(Hashtable *hashtable, int key);
 void ht_debug(Hashtable *hashtable);
 
 #endif //HASHTABLE_HASHTABLE_H

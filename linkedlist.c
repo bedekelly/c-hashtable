@@ -10,6 +10,7 @@ LinkedList *ll_create() {
     return list;
 }
 
+
 void ll_add(LinkedList *list, int key, int data) {
 
     LinkedListNode *nextItem = malloc(sizeof(LinkedListNode));
@@ -29,6 +30,7 @@ void ll_add(LinkedList *list, int key, int data) {
 
     list->size++;
 }
+
 
 void ll_set(LinkedList *list, int key, int data) {
     if (list->first) {
@@ -66,6 +68,7 @@ void ll_foreach(LinkedList *list, LinkedListIterator callback) {
     }
 }
 
+
 void ll_delete(LinkedList *list, int key) {
     if (!list->first) return;
     list->size--;
@@ -97,6 +100,7 @@ void ll_delete(LinkedList *list, int key) {
     }
 }
 
+
 void ll_destroy(LinkedList *list) {
     LinkedListNode *this = list->first;
     LinkedListNode *next;
@@ -107,6 +111,7 @@ void ll_destroy(LinkedList *list) {
     }
     free(list);
 }
+
 
 int ll_get(LinkedList *list, int key) {
     for (LinkedListNode *node = list->first; node != NULL; node=node->next) {
