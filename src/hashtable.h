@@ -19,6 +19,7 @@ Hashtable *ht_create();
 void ht_set(Hashtable *, char* key, char* value);
 char* ht_get(Hashtable *, char* key);
 void ht_delete(Hashtable *hashtable, char* key);
+void ht_destroy(Hashtable *hashtable);
 void ht_debug(Hashtable *hashtable);
 void ht_stats(Hashtable *hashtable);
 

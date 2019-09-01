@@ -110,6 +110,8 @@ void ll_delete(LinkedList *list, char* key) {
     while (this) {
         if (this->key == key) {
             prev->next = this->next;
+            free(this->key);
+            free(this->data);
             free(this);
             break;
         }
@@ -124,6 +126,8 @@ void ll_destroy(LinkedList *list) {
     LinkedListNode *next;
     while(this) {
         next = this->next;
+        free(this->key);
+        free(this->data);
         free(this);
         this = next;
     }

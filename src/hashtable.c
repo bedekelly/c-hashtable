@@ -119,3 +119,12 @@ void ht_delete(Hashtable *hashtable, char* key) {
     LinkedList *list = hashtable->table[hashedKey];
     ll_delete(list, key);
 }
+
+void ht_destroy(Hashtable *hashtable) {
+    // Destroy every linked list.
+    for (int i=0; i<hashtable->maxLength; i++) {
+        ll_destroy(hashtable->table[i]);
+    }
+    free(hashtable->table);
+    free(hashtable);
+}
