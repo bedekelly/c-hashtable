@@ -2,11 +2,15 @@
 
 A simple hashtable mapping strings to strings, written in C.
 
-This implements table doubling to keep reads and writes at O(1). The rate
-at which the table doubles is configurable by altering `DOUBLE_SIZE` in
-[hashtable.h](./hashtable.h).
+This hashtable uses separate chaining to handle hash collisions, meaning each 'bucket' is a linked list.
+The linked list implementation here acts as an associative array, exposing
+"get" and "set" operations.
 
-Keys and values are copied when added to the table, and these copies are freed when the value (or the whole table) is deleted.
+Table Doubling keeps the load factor below 1.  The upper bound at which the table doubles is configurable by altering `DOUBLE_SIZE` in
+[hashtable.h](./src/hashtable.h).
+
+Keys and values are copied when added to the table, so altering a key *or value* after inserting into the hashtable has no effect on the table contents.
+These copies are freed when the key (or the whole table) is deleted.
 
 The hash used here is "djb2", modified from [here](http://www.cse.yorku.ca/~oz/hash.html).
 
