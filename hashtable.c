@@ -23,16 +23,23 @@ Hashtable *ht_create_with_size(int maxLength) {
 }
 
 
-int hash(key, maxLength) {
-    return key % maxLength;
+unsigned int hash(char* key, int maxLength) {
+    unsigned long hash = 5381;
+    unsigned int c;
+
+    while ((c = *key++))
+        hash = ((hash << 5) + hash) + c;
+
+    return hash % maxLength;
 }
 
 
-void ht_set(Hashtable *hashtable, int key, int value) {
+void ht_set(Hashtable *hashtable, char* key, char* value) {
     int hashedKey = hash(key, hashtable->maxLength);
     LinkedList *list = hashtable->table[hashedKey];
+    int itemsInBucketAlready = list->size;
     ll_set(list, key, value);
-    hashtable->numItems++;
+    hashtable->numItems += list->size - itemsInBucketAlready;
 
     // If we've reached the threshold of doubling our table size:
     if (hashtable->numItems > DOUBLE_SIZE * hashtable->maxLength) {
@@ -48,6 +55,7 @@ void ht_set(Hashtable *hashtable, int key, int value) {
 
         // Set the hashtable's values to the new table and size.
         hashtable->table = newTable;
+        hashtable->numItems = 0;
         hashtable->maxLength = newLength;
 
         // Rehash all linked list items
@@ -71,7 +79,7 @@ void ht_set(Hashtable *hashtable, int key, int value) {
 }
 
 
-int ht_get(Hashtable *hashtable, int key) {
+char* ht_get(Hashtable *hashtable, char* key) {
     int hashedKey = hash(key, hashtable->maxLength);
     LinkedList *list = hashtable->table[hashedKey];
     return ll_get(list, key);
@@ -87,7 +95,26 @@ void ht_debug(Hashtable *hashtable) {
 }
 
 
-void ht_delete(Hashtable *hashtable, int key) {
+void ht_stats(Hashtable *hashtable) {
+    int tableSize = hashtable->maxLength;
+    int numItems = hashtable->numItems;
+    printf("Number of items: %d\n", numItems);
+
+    double loadFactor = (float) numItems / (float) tableSize;
+    printf("Load factor: %.3f\n", loadFactor);
+
+    double totalItems = 0;
+    for (int i=0; i<hashtable->maxLength; i++) {
+        totalItems += hashtable->table[i]->size;
+    }
+
+    char *totalItemsMatches = totalItems == numItems ? "yes" : "no";
+    printf("Total number of items matches sum of list sizes: %s\n", totalItemsMatches);
+    double averageLoad = (float) totalItems / (float) hashtable->maxLength;
+    printf("Average load of a bucket: %.3f\n", averageLoad);
+}
+
+void ht_delete(Hashtable *hashtable, char* key) {
     int hashedKey = hash(key, hashtable->maxLength);
     LinkedList *list = hashtable->table[hashedKey];
     ll_delete(list, key);

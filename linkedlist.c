@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "linkedlist.h"
 
 
@@ -11,11 +12,16 @@ LinkedList *ll_create() {
 }
 
 
-void ll_add(LinkedList *list, int key, int data) {
+void ll_add(LinkedList *list, char* key, char* data) {
 
     LinkedListNode *nextItem = malloc(sizeof(LinkedListNode));
-    nextItem->key = key;
-    nextItem->data = data;
+
+    // Key and data are both copied.
+    char* keyCopy = strdup(key);
+    char* dataCopy = strdup(data);
+
+    nextItem->key = keyCopy;
+    nextItem->data = dataCopy;
     nextItem->next = NULL;
 
     if (list->first) {
@@ -32,26 +38,36 @@ void ll_add(LinkedList *list, int key, int data) {
 }
 
 
-void ll_set(LinkedList *list, int key, int data) {
+void ll_set(LinkedList *list, char* key, char* data) {
+    // Copy the new data regardless of where in the list it's inserted.
+    char* dataCopy = strdup(data);
+
+    // Check if we've got a list already present to append the data to.
     if (list->first) {
         LinkedListNode *this = list->first;
+
+        // Loop through to find an instance of the current key
         do {
-            if (this->key == key) {
-                this->data = data;
+            if (strcmp(this->key, key) == 0) {
+                this->data = dataCopy;
                 return;
             }
             if (this->next) this = this->next;
         } while (this->next);
 
+        // If we can't find the key, create a new node!
         LinkedListNode *nextItem = malloc(sizeof(LinkedListNode));
-        nextItem->key = key;
-        nextItem->data = data;
+        char* keyCopy = strdup(key);
+        nextItem->key = keyCopy;
+        nextItem->data = dataCopy;
         nextItem->next = NULL;
         this->next = nextItem;
     } else {
+        // We're creating a new first node of our linked list.
         LinkedListNode *nextItem = malloc(sizeof(LinkedListNode));
-        nextItem->key = key;
-        nextItem->data = data;
+        char* keyCopy = strdup(key);
+        nextItem->key = keyCopy;
+        nextItem->data = dataCopy;
         nextItem->next = NULL;
         list->first = nextItem;
     }
@@ -69,18 +85,20 @@ void ll_foreach(LinkedList *list, LinkedListIterator callback) {
 }
 
 
-void ll_delete(LinkedList *list, int key) {
+void ll_delete(LinkedList *list, char* key) {
     if (!list->first) return;
     list->size--;
 
     // Delete the first element of the linked list.
-    if (list->first->key == key) {
+    if (strcmp(list->first->key, key) == 0) {
         LinkedListNode *newFirst;
         if (list->first->next) {
             newFirst = list->first->next;
         } else {
             newFirst = NULL;
         }
+        free(list->first->data);
+        free(list->first->key);
         free(list->first);
         list->first = newFirst;
         return;
@@ -113,13 +131,12 @@ void ll_destroy(LinkedList *list) {
 }
 
 
-int ll_get(LinkedList *list, int key) {
+char* ll_get(LinkedList *list, char* key) {
     for (LinkedListNode *node = list->first; node != NULL; node=node->next) {
-        printf("LinkedList Check\n");
-        if (node->key == key) {
+        if (strcmp(node->key, key) == 0) {
             return node->data;
         }
     }
-    printf("Error in ll_get: key %d not found.\n", key);
-    return -1;
+    printf("Error in ll_get: key %s not found.\n", key);
+    return NULL;
 }

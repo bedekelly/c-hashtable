@@ -13,15 +13,16 @@ typedef struct {
 
 
 typedef struct LinkedListNode {
-    int key;
-    int data;
+    char* key;
+    char* data;
     struct LinkedListNode *next;
 } LinkedListNode;
 
-void ll_add(LinkedList *, int key, int data);
-void ll_delete(LinkedList *, int key);
-int ll_get(LinkedList *, int key);
-void ll_set(LinkedList *list, int key, int data);
+
+void ll_add(LinkedList *, char* key, char* data);
+void ll_delete(LinkedList *, char* key);
+char* ll_get(LinkedList *, char* key);
+void ll_set(LinkedList *list, char* key, char* data);
 
 LinkedList *ll_create();
 void ll_destroy(LinkedList *);

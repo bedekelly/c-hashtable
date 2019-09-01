@@ -6,7 +6,7 @@
 #define HASHTABLE_HASHTABLE_H
 
 #include "linkedlist.h"
-#define DOUBLE_SIZE 5
+#define DOUBLE_SIZE 1
 
 typedef struct {
     int maxLength;
@@ -16,9 +16,10 @@ typedef struct {
 
 
 Hashtable *ht_create();
-void ht_set(Hashtable *, int key, int value);
-int ht_get(Hashtable *, int key);
-void ht_delete(Hashtable *hashtable, int key);
+void ht_set(Hashtable *, char* key, char* value);
+char* ht_get(Hashtable *, char* key);
+void ht_delete(Hashtable *hashtable, char* key);
 void ht_debug(Hashtable *hashtable);
+void ht_stats(Hashtable *hashtable);
 
 #endif //HASHTABLE_HASHTABLE_H

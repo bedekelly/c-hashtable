@@ -1,20 +1,33 @@
 #include <stdio.h>
-#include "linkedlist.h"
+#include <assert.h>
+#include <string.h>
 #include "hashtable.h"
-
-
-void printNode(LinkedListNode *node) {
-    printf("%d: %d\n", node->key, node->data);
-}
 
 
 int main() {
     Hashtable *ht = ht_create();
-    for (int i=0; i<10000; i++) {
-        ht_set(ht, i, i*10);
+
+    for (int i=0; i<10000000; i++) {
+        char key[10];
+        snprintf(key, 10, "%i", i);
+        char val[10];
+        snprintf(val, 10, "%i", i*2);
+        ht_set(ht, key, val);
     }
 
-    printf("%d\n", ht_get(ht, 2));
-    ht_delete(ht, 2);
-    printf("%d\n", ht_get(ht, 2));
+    ht_stats(ht);
+
+    for (int i=0; i<10000000; i++) {
+        char key[10];
+        snprintf(key, 10, "%i", i);
+        char val[10];
+        snprintf(val, 10, "%i", i*2);
+        char *result = ht_get(ht, key);
+        if (strcmp(result, val) != 0) {
+            printf("%s != %s\n", result, val);
+        }
+        assert(strcmp(result, val) == 0);
+    }
+
+    printf("%s\n", ht_get(ht, "902351"));
 }
