@@ -7,7 +7,7 @@
 int main() {
     Hashtable *ht = ht_create();
 
-    for (int i=0; i<1000000; i++) {
+    for (int i=0; i<1000; i++) {
         char key[10];
         snprintf(key, 10, "%i", i);
         char val[10];
@@ -15,7 +15,7 @@ int main() {
         ht_set(ht, key, val);
     }
 
-    for (int i=0; i<1000000; i++) {
+    for (int i=0; i<1000; i++) {
         char key[10];
         snprintf(key, 10, "%i", i);
         char val[10];
