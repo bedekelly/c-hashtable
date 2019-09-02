@@ -1,0 +1,60 @@
+With 16384 entries:
+Insert: 4.00000
+Retrieve: 1.00000
+Delete: 2.00000
+With 32768 entries:
+Insert: 7.00000
+Retrieve: 4.00000
+Delete: 3.00000
+With 65536 entries:
+Insert: 15.00000
+Retrieve: 6.00000
+Delete: 6.00000
+With 131072 entries:
+Insert: 29.00000
+Retrieve: 13.00000
+Delete: 11.00000
+With 262144 entries:
+Insert: 57.00000
+Retrieve: 28.00000
+Delete: 24.00000
+With 524288 entries:
+Insert: 120.00000
+Retrieve: 52.00000
+Delete: 48.00000
+With 1048576 entries:
+Insert: 236.00000
+Retrieve: 108.00000
+Delete: 101.00000
+With 2097152 entries:
+Insert: 462.00000
+Retrieve: 211.00000
+Delete: 186.00000
+With 4194304 entries:
+Insert: 913.00000
+Retrieve: 416.00000
+Delete: 376.00000
+With 8388608 entries:
+Insert: 1857.00000
+Retrieve: 847.00000
+Delete: 750.00000
+With 16777216 entries:
+Insert: 3674.00000
+Retrieve: 1656.00000
+Delete: 1505.00000
+With 33554432 entries:
+Insert: 7468.00000
+Retrieve: 3316.00000
+Delete: 3012.00000
+With 67108864 entries:
+Insert: 14686.00000
+Retrieve: 6592.00000
+Delete: 6010.00000
+With 134217728 entries:
+Insert: 29405.00000
+Retrieve: 13195.00000
+Delete: 12019.00000
+With 268435456 entries:
+Insert: 60544.00000
+Retrieve: 27212.00000
+Delete: 24294.00000
