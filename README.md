@@ -15,7 +15,7 @@ These copies are freed when the key (or the whole table) is deleted.
 The hash used here is "djb2", modified from [here](http://www.cse.yorku.ca/~oz/hash.html).
 
 ### Amortized Complexity Profiling
-The amortized complexity of this data structure is explored in [this Jupyter Notebook](./analysis/Hashtable%20Analysis.html). The short answer that it's O(1) for inserts, reads and deletes -- just how it's meant to be!
+The amortized complexity of this data structure is explored in [this Jupyter Notebook](./analysis/notebook.pdf). The short answer that it's O(1) for inserts, reads and deletes -- just how it's meant to be!
 
 ### Memory Leak Checking
 As MacOS doesn't have a working build of Valgrind, this project includes a Dockerfile which builds the project on Ubuntu Linux and checks it for memory leaks.
